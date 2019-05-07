@@ -6,20 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>分词原理 | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="英文中，一个单词就是一个词，而汉语中，以字为基本的书写单位，词语之间没有明显的区分标记，需要人为切分。根据其特点，可以把分词算法分为四大类：  基于规则的分词方法 基于统计的分词方法 基于语义的分词方法 基于理解的分词方法">
-<meta name="keywords" content="分词,原理">
-<meta property="og:type" content="article">
-<meta property="og:title" content="分词原理">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://yoursite.com/2019/05/06/分词原理/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="英文中，一个单词就是一个词，而汉语中，以字为基本的书写单位，词语之间没有明显的区分标记，需要人为切分。根据其特点，可以把分词算法分为四大类：  基于规则的分词方法 基于统计的分词方法 基于语义的分词方法 基于理解的分词方法">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-06T01:37:14.057Z">
+<meta property="og:updated_time" content="2019-05-06T11:08:54.287Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分词原理">
-<meta name="twitter:description" content="英文中，一个单词就是一个词，而汉语中，以字为基本的书写单位，词语之间没有明显的区分标记，需要人为切分。根据其特点，可以把分词算法分为四大类：  基于规则的分词方法 基于统计的分词方法 基于语义的分词方法 基于理解的分词方法">
+<meta name="twitter:title" content="Hexo">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -158,55 +154,9 @@
             <article id="post-分词原理" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      分词原理
-    </h1>
-  
-
-        
-        <a href="/2019/05/06/分词原理/" class="archive-article-date">
-  	<time datetime="2019-05-05T17:29:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-06</time>
-</a>
-        
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>英文中，一个单词就是一个词，而汉语中，以字为基本的书写单位，词语之间没有明显的区分标记，需要人为切分。<br>根据其特点，可以把分词算法分为四大类：</p>
-<ul>
-<li>基于规则的分词方法</li>
-<li>基于统计的分词方法</li>
-<li>基于语义的分词方法</li>
-<li>基于理解的分词方法<a id="more"></a>
-</li>
-</ul>
-<!-- ttoc -->
-<h3 id="基于规则的分词方法"><a href="#基于规则的分词方法" class="headerlink" title="基于规则的分词方法"></a>基于规则的分词方法</h3><p>这种方法又叫作机械分词方法、基于字典的分词方法，它是按照一定的策略将待分析的汉字串与一个“充分大的”机器词典中的词条进行匹配。若在词典中找到某个字符串，则匹配成功。该方法有三个要素，即分词词典、文本扫描顺序和匹配原则。文本的扫描顺序有正向扫描、逆向扫描和双向扫描。匹配原则主要有最大匹配、最小匹配、逐词匹配和最佳匹配。</p>
-<blockquote>
-<p><strong>最大匹配法（MM）。</strong>基本思想是：假设自动分词词典中的最长词条所含汉字的个数为 i，则取被处理材料当前字符串序列中的前i个字符作为匹配字段，查找分词词典，若词典中有这样一个i字词，则匹配成功，匹配字段作为一个词被切分出来；若词典中找不到这样的一个i字词，则匹配失败，匹配字段去掉最后一个汉字，剩下的字符作为新的匹配字段，再进行匹配，如此进行下去，直到匹配成功为止。统计结果表明，该方法的错误率为 1/169.</p>
-</blockquote>
-<blockquote>
-<p><strong>逆向最大匹配法（RMM）。</strong>该方法的分词过程与 MM 法相同，不同的是从句子（或文章）末尾开始处理，每次匹配不成功时去掉的是前面的一个汉字。统计结果表明，该方法的错误率为 1/245。</p>
-</blockquote>
-<blockquote>
-<p><strong>逐词遍历法。</strong>把词典中的词按照由长到短递减的顺序逐字搜索整个待处理的材料，一直到把全部的词切分出来为止。不论分词词典多大，被处理的材料多么小，都得把这个分词词典匹配一遍。</p>
-</blockquote>
-<blockquote>
-<p><strong>设立切分标志法。</strong>切分标志有自然和非自然之分。自然切分标志是指文章中出现的非文字符号，如标点符号等；非自然标志是利用词缀和不构成词的词（包 括单音词、复音节词以及象声词等）。设立切分标志法首先收集众多的切分标志，分词时先找出切分标志，把句子切分为一些较短的字段，再用 MM、RMM 或其它的方法进行细加工。这种方法并非真正意义上的分词方法，只是自动分词的一种前处理方式而已，它要额外消耗时间扫描切分标志，增加存储空间存放那些非 自然切分标志。</p>
-</blockquote>
-<blockquote>
-<p><strong>最佳匹配法（OM）。</strong>此法分为正向的最佳匹配法和逆向的最佳匹配法，其出发点是：在词典中按词频的大小顺序排列词条，以求缩短对分词词典的检索时 间，达到最佳效果，从而降低分词的时间复杂度，加快分词速度。实质上，这种方法也不是一种纯粹意义上的分词方法，它只是一种对分词词典的组织方式。OM 法的分词词典每条词的前面必须有指明长度的数据项，所以其空间复杂度有所增加，对提高分词精度没有影响，分词处理的时间复杂度有所降低。</p>
-</blockquote>
-<p>此种方法优点是简单，易于实现。但缺点有很多：匹配速度慢；存在交集型和组合型歧义切分问题；词本身没有一个标准的定义，没有统一标准的词集；不同词典产生的歧义也不同；缺乏自学习的智能性。</p>
-<h3 id="基于统计的分词方法"><a href="#基于统计的分词方法" class="headerlink" title="基于统计的分词方法"></a>基于统计的分词方法</h3><p>该方法的主要思想：词是稳定的组合，因此在上下文中，相邻的字同时出现的次数越多，就越有可能构成一个词。因此字与字相邻出现的概率或频率能较好地反映成词的可信度。可以对训练文本中相邻出现的各个字的组合的频度进行统计，计算它们之间的互现信息。互现信息体现了汉字之间结合关系的紧密程度。当紧密程 度高于某一个阈值时，便可以认为此字组可能构成了一个词。该方法又称为无字典分词。<br>该方法所应用的主要的统计模型有：N 元文法模型（N-gram）、隐马尔可夫模型（Hiden Markov Model，HMM）、最大熵模型（ME）、条件随机场模型（Conditional Random Fields，CRF）等。<br>在实际应用中此类分词算法一般是将其与基于词典的分词方法结合起来，既发挥匹配分词切分速度快、效率高的特点，又利用了无词典分词结合上下文识别生词、自动消除歧义的优点。</p>
-<h3 id="基于语义的分词方法"><a href="#基于语义的分词方法" class="headerlink" title="基于语义的分词方法"></a>基于语义的分词方法</h3><p>语义分词法引入了语义分析，对自然语言自身的语言信息进行更多的处理，如扩充转移网络法、知识分词语义分析法、邻接约束法、综合匹配法、后缀分词法、特征词库法、矩阵约束法、语法分析法等。</p>
-<blockquote>
-<p><strong>扩充转移网络法。</strong>该方法以有限状态机概念为基础。有限状态机只能识别正则语言，对有限状态机作的第一次扩充使其具有递归能力，形成递归转移网络 （RTN）。在RTN 中，弧线上的标志不仅可以是终极符（语言中的单词）或非终极符（词类），还可以调用另外的子网络名字分非终极符（如字或字串的成词条件）。这样，计算机在 运行某个子网络时，就可以调用另外的子网络，还可以递归调用。词法扩充转移</p>
-</blockquote>
-
+        
       
 
       
@@ -235,33 +185,7 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">分词</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">原理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/数学之美//" class="article-tag-list-link color5">数学之美</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
 
@@ -325,11 +249,15 @@
   
 <nav id="article-nav">
   
-  
-    <a href="/2019/05/05/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
-      <i class="icon-circle-right"></i>
+    <a href="/2019/05/07/Dijkstra算法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
     </a>
+  
   
 </nav>
 
@@ -462,6 +390,26 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">实践</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">N最短路径</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Dijkstra算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">迪杰斯特拉</a>
               </li>
             
             <div class="clearfix"></div>
