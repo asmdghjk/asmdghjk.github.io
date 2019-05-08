@@ -66,10 +66,6 @@
     			
             
     			
-    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
-    			
-            
-    			
     			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
     			
             
@@ -152,19 +148,114 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-/algorithm/shortPath1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Git" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/algorithm/shortPath1/">Dijkstra算法</a>
+      <a class="article-title" href="Git/">Git</a>
     </h1>
   
 
         
-        <a href="/algorithm/shortPath1/" class="archive-article-date">
+        <a href="Git/" class="archive-article-date">
+  	<time datetime="2019-05-08T08:31:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="git安装配置相关"><a href="#git安装配置相关" class="headerlink" title="git安装配置相关"></a>git安装配置相关</h2><p>生成秘钥<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"youremail@example.com"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="git本地使用"><a href="#git本地使用" class="headerlink" title="git本地使用"></a>git本地使用</h2><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><p>切换其他分支前，暂存当前分支的修改<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将当前工作区的暂存区的数据收入stash</span></span><br><span class="line">git stash</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>git stash</strong> 不会存储未跟踪的文件，所以使用该指令操作如下比较安全，执行stash后内容为最近commit节点内容。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.看有没有未追踪的文件</span></span><br><span class="line">git status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.如果有未追踪的文件，先add</span></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.可暂存修改了</span></span><br><span class="line">git stash</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">git stash save <span class="string">'本次暂存的标识名字'</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>查看存储列表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure></p>
+<p>切换回分支后，恢复暂存的修改<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接恢复最近的暂存，pop后暂存列表清空</span></span><br><span class="line">git stash pop</span><br><span class="line">git stash pop stash@&#123;0&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也有其他指令可以恢复,apply后暂存列表不清空</span></span><br><span class="line">git stash apply</span><br><span class="line">git stash apply stash@&#123;0&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 手动清理暂存列表</span></span><br><span class="line"><span class="comment">#删除某个暂存, 暂存记录保存在list内,需要通过list索引index取出恢复</span></span><br><span class="line">git stash drop stash@&#123;index&#125;</span><br><span class="line"><span class="comment">#删除全部暂存</span></span><br><span class="line">git stash clear</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ssh</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/工具//" class="article-tag-list-link color3">工具</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="Git/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Dijkstra算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="Dijkstra算法/">Dijkstra算法</a>
+    </h1>
+  
+
+        
+        <a href="Dijkstra算法/" class="archive-article-date">
   	<time datetime="2019-05-06T01:38:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-06</time>
 </a>
         
@@ -174,7 +265,7 @@
       
         <p>迪杰斯特拉(Dijkstra)算法是典型最短路径算法，用于计算一个节点到其他节点的最短路径。<br>它的主要特点是以起始点为中心向外层层扩展(广度优先搜索思想)，直到扩展到终点为止。</p>
         
-          <a class="article-more-a" href="/algorithm/shortPath1/#more">more >></a>
+          <a class="article-more-a" href="Dijkstra算法/#more">more >></a>
         
       
 
@@ -209,7 +300,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/algorithm/shortPath1/">展开全文 >></a>
+          <a class="article-more-a" href="Dijkstra算法/">展开全文 >></a>
         </p>
       
 
@@ -239,19 +330,19 @@
 
 
   
-    <article id="post-/blog/fenciyuanli" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-分词原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/fenciyuanli/">分词原理</a>
+      <a class="article-title" href="分词原理/">分词原理</a>
     </h1>
   
 
         
-        <a href="/blog/fenciyuanli/" class="archive-article-date">
+        <a href="分词原理/" class="archive-article-date">
   	<time datetime="2019-05-05T17:29:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-06</time>
 </a>
         
@@ -267,7 +358,7 @@
 <li>基于理解的分词方法</li>
 </ul>
         
-          <a class="article-more-a" href="/blog/fenciyuanli/#more">more >></a>
+          <a class="article-more-a" href="分词原理/#more">more >></a>
         
       
 
@@ -306,7 +397,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/blog/fenciyuanli/">展开全文 >></a>
+          <a class="article-more-a" href="分词原理/">展开全文 >></a>
         </p>
       
 
@@ -367,7 +458,7 @@
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,
-		showTags: false
+		showTags: true
 	}
 </script>
 
@@ -390,25 +481,17 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
       
       
     
-      
-      
-      
-    
     
 
     <ul style="width: 70%">
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
       
         
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">友链</a></li>
-      
-        
-      
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
+      <li style="width: 50%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
       
         
     </ul>
@@ -427,6 +510,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ssh</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">分词</a>
@@ -483,38 +574,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     	</section>
     
 
-    
-    	<section class="tools-section tools-section-friends" q-show="friends">
-  		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
-            </li>
-          
-        </ul>
-  		
-    	</section>
     
 
     
