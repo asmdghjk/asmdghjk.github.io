@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>基于规则的分词实现 | 博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最大匹配法（MM）实现案例词典文件word.txt12345678910北京天安门四维图新大厦广场路上前往火车站公司经过 停用词文件stoplis.txt12345678@#￥%&amp;amp;_=+ 最大匹配法 代码实现12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505">
+  <meta name="description" content="最大匹配法（MM）实现案例">
 <meta name="keywords" content="最大匹配法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于规则的分词实现">
 <meta property="og:url" content="http://yoursite.com/基于规则的分词实现/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="最大匹配法（MM）实现案例词典文件word.txt12345678910北京天安门四维图新大厦广场路上前往火车站公司经过 停用词文件stoplis.txt12345678@#￥%&amp;amp;_=+ 最大匹配法 代码实现12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505">
+<meta property="og:description" content="最大匹配法（MM）实现案例">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-09T06:31:40.836Z">
+<meta property="og:updated_time" content="2019-05-09T07:05:55.628Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于规则的分词实现">
-<meta name="twitter:description" content="最大匹配法（MM）实现案例词典文件word.txt12345678910北京天安门四维图新大厦广场路上前往火车站公司经过 停用词文件stoplis.txt12345678@#￥%&amp;amp;_=+ 最大匹配法 代码实现12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505">
+<meta name="twitter:description" content="最大匹配法（MM）实现案例">
   
     <link rel="alternative" href="/atom.xml" title="博客" type="application/atom+xml">
   
@@ -171,7 +171,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="最大匹配法（MM）实现案例"><a href="#最大匹配法（MM）实现案例" class="headerlink" title="最大匹配法（MM）实现案例"></a>最大匹配法（MM）实现案例</h3><p>词典文件<br><figure class="highlight plain"><figcaption><span>word.txt</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">北京</span><br><span class="line">天安门</span><br><span class="line">四维图新</span><br><span class="line">大厦</span><br><span class="line">广场</span><br><span class="line">路上</span><br><span class="line">前往</span><br><span class="line">火车站</span><br><span class="line">公司</span><br><span class="line">经过</span><br></pre></td></tr></table></figure></p>
+        <ul>
+<li>最大匹配法（MM）实现案例</li>
+</ul>
+<a id="more"></a>
+<h3 id="最大匹配法（MM）实现案例"><a href="#最大匹配法（MM）实现案例" class="headerlink" title="最大匹配法（MM）实现案例"></a>最大匹配法（MM）实现案例</h3><p>词典文件<br><figure class="highlight plain"><figcaption><span>word.txt</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">北京</span><br><span class="line">天安门</span><br><span class="line">四维图新</span><br><span class="line">大厦</span><br><span class="line">广场</span><br><span class="line">路上</span><br><span class="line">前往</span><br><span class="line">火车站</span><br><span class="line">公司</span><br><span class="line">经过</span><br></pre></td></tr></table></figure></p>
 <p>停用词文件<br><figure class="highlight plain"><figcaption><span>stoplis.txt</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@</span><br><span class="line">#</span><br><span class="line">￥</span><br><span class="line">%</span><br><span class="line">&amp;</span><br><span class="line">_</span><br><span class="line">=</span><br><span class="line">+</span><br></pre></td></tr></table></figure></p>
 <p>最大匹配法 代码实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MM</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.dic = &#123;&#125;</span><br><span class="line">        self.stoplis = &#123;&#125;</span><br><span class="line">        self.load()</span><br><span class="line">        self.max_chars = <span class="number">0</span> <span class="comment"># 遍历分词字典，获得最大分词长度</span></span><br><span class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> self.dic:</span><br><span class="line">            <span class="keyword">if</span> len(key) &gt; self.max_chars:</span><br><span class="line">                self.max_chars = len(key)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 获得分词字典，存储为字典形式</span></span><br><span class="line">        f1 = codecs.open(<span class="string">'words.txt'</span>, <span class="string">'r'</span>, encoding=<span class="string">'utf8'</span>)</span><br><span class="line">        <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">            line = f1.readline()</span><br><span class="line">            <span class="keyword">if</span> len(line) == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            term = line.strip().replace(<span class="string">'\r\n'</span>, <span class="string">''</span>)  <span class="comment"># 去除字符串两侧的换行符，避免取最大分词长度时出差错</span></span><br><span class="line">            self.dic[term] = <span class="number">1</span></span><br><span class="line">        f1.close</span><br><span class="line">        <span class="comment"># 获得停用词典，存储为字典形式</span></span><br><span class="line">        f2 = codecs.open(<span class="string">'stoplis.txt'</span>, <span class="string">'r'</span>, encoding=<span class="string">'utf8'</span>)</span><br><span class="line">        <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">            line = f2.readline()</span><br><span class="line">            <span class="keyword">if</span> len(line) == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            term = line.strip()</span><br><span class="line">            self.stoplis[term] = <span class="number">1</span></span><br><span class="line">        f2.close</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 正向最大匹配分词算法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">analyze</span><span class="params">(self, chars)</span>:</span></span><br><span class="line">        <span class="comment"># 获得需要分词的文本，为字符串形式</span></span><br><span class="line">        <span class="comment"># 去除字符串两侧的换行符，避免截词时出差错 </span></span><br><span class="line">        chars = chars.strip().replace(<span class="string">'\r\n'</span>, <span class="string">''</span>)  </span><br><span class="line">        <span class="comment"># 定义一个空列表来存储分词结果</span></span><br><span class="line">        words = []</span><br><span class="line">        n = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> n &lt; len(chars):</span><br><span class="line">            matched = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(self.max_chars, <span class="number">0</span>, <span class="number">-1</span>):</span><br><span class="line">                s = chars[n:n + i]</span><br><span class="line">                <span class="comment"># 判断所截取字符串是否在分词词典和停用词典内</span></span><br><span class="line">                <span class="keyword">if</span> s <span class="keyword">in</span> self.dic:</span><br><span class="line">                    <span class="keyword">if</span> s <span class="keyword">in</span> self.stoplis:</span><br><span class="line">                        matched = <span class="number">1</span></span><br><span class="line">                        n = n + i</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        words.append(s)</span><br><span class="line">                        matched = <span class="number">1</span></span><br><span class="line">                        n = n + i</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">if</span> s <span class="keyword">in</span> self.stoplis:</span><br><span class="line">                    matched = <span class="number">1</span></span><br><span class="line">                    n = n + i</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> matched:</span><br><span class="line">                words.append(chars[n])</span><br><span class="line">                n = n + <span class="number">1</span></span><br><span class="line">        print(<span class="string">"/"</span>.join(words))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    mm = MM()</span><br><span class="line">    mm.analyze(<span class="string">"我去北京四维图新大厦的路上经过@火车站和@天安门广场。"</span>)</span><br></pre></td></tr></table></figure></p>
 <p>测试结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我/去/北京/四维图新/大厦/的/路上/经过/火车站/和/天安门/广场/。</span><br></pre></td></tr></table></figure></p>
@@ -440,23 +444,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">经验</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">公钥加密算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分词</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最大匹配法</a>
+                <a href="javascript:void(0)" class="js-tag color5">最短路径</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -468,7 +456,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">最短路径</a>
+                <a href="javascript:void(0)" class="js-tag color3">经验</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">公钥加密算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最大匹配法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分词</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
             
             <div class="clearfix"></div>

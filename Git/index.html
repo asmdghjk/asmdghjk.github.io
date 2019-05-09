@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Git | 博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="git安装配置相关生成秘钥1ssh-keygen -t rsa -C &quot;youremail@example.com&quot; git本地使用git stash切换其他分支前，暂存当前分支的修改12# 将当前工作区的暂存区的数据收入stashgit stash  git stash 不会存储未跟踪的文件，所以使用该指令操作如下比较安全，执行stash后内容为最近commit节点内容。12345678910#">
-<meta name="keywords" content="经验,git,ssh">
+  <meta name="description" content="生成秘钥、git暂存区">
+<meta name="keywords" content="git,ssh,经验">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git">
 <meta property="og:url" content="http://yoursite.com/Git/index.html">
 <meta property="og:site_name" content="博客">
-<meta property="og:description" content="git安装配置相关生成秘钥1ssh-keygen -t rsa -C &quot;youremail@example.com&quot; git本地使用git stash切换其他分支前，暂存当前分支的修改12# 将当前工作区的暂存区的数据收入stashgit stash  git stash 不会存储未跟踪的文件，所以使用该指令操作如下比较安全，执行stash后内容为最近commit节点内容。12345678910#">
+<meta property="og:description" content="生成秘钥、git暂存区">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-09T06:35:11.453Z">
+<meta property="og:updated_time" content="2019-05-09T07:06:44.911Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git">
-<meta name="twitter:description" content="git安装配置相关生成秘钥1ssh-keygen -t rsa -C &quot;youremail@example.com&quot; git本地使用git stash切换其他分支前，暂存当前分支的修改12# 将当前工作区的暂存区的数据收入stashgit stash  git stash 不会存储未跟踪的文件，所以使用该指令操作如下比较安全，执行stash后内容为最近commit节点内容。12345678910#">
+<meta name="twitter:description" content="生成秘钥、git暂存区">
   
     <link rel="alternative" href="/atom.xml" title="博客" type="application/atom+xml">
   
@@ -171,7 +171,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="git安装配置相关"><a href="#git安装配置相关" class="headerlink" title="git安装配置相关"></a>git安装配置相关</h2><p>生成秘钥<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"youremail@example.com"</span></span><br></pre></td></tr></table></figure></p>
+        <p>生成秘钥、git暂存区</p>
+<a id="more"></a>
+<h2 id="git安装配置相关"><a href="#git安装配置相关" class="headerlink" title="git安装配置相关"></a>git安装配置相关</h2><p>生成秘钥<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"youremail@example.com"</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="git本地使用"><a href="#git本地使用" class="headerlink" title="git本地使用"></a>git本地使用</h2><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><p>切换其他分支前，暂存当前分支的修改<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将当前工作区的暂存区的数据收入stash</span></span><br><span class="line">git stash</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p><strong>git stash</strong> 不会存储未跟踪的文件，所以使用该指令操作如下比较安全，执行stash后内容为最近commit节点内容。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.看有没有未追踪的文件</span></span><br><span class="line">git status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.如果有未追踪的文件，先add</span></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.可暂存修改了</span></span><br><span class="line">git stash</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">git stash save <span class="string">'本次暂存的标识名字'</span></span><br></pre></td></tr></table></figure></p>
@@ -212,15 +214,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">经验</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ssh</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">经验</a>
         		</li>
       		
 		</ul>
@@ -451,23 +453,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">经验</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">公钥加密算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">分词</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">最大匹配法</a>
+                <a href="javascript:void(0)" class="js-tag color5">最短路径</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -479,7 +465,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">最短路径</a>
+                <a href="javascript:void(0)" class="js-tag color3">经验</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">公钥加密算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">最大匹配法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分词</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">原理</a>
               </li>
             
             <div class="clearfix"></div>
