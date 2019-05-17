@@ -1,6 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Maven]]></title>
+    <url>%2FMaven%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>maven</tag>
+        <tag>jar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Java基础]]></title>
+    <url>%2FJava%E5%9F%BA%E7%A1%80%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python基础]]></title>
+    <url>%2FPython%E5%9F%BA%E7%A1%80%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[基于统计的分词实现]]></title>
+    <url>%2F%E5%9F%BA%E4%BA%8E%E7%BB%9F%E8%AE%A1%E7%9A%84%E5%88%86%E8%AF%8D%E5%AE%9E%E7%8E%B0%2F</url>
+    <content type="text"><![CDATA[统计分词的主要思想是把每个词看做是由字组成的，如果相连的字在不同文本中出现的次数越多，就证明这段相连的字很有可能就是一个词。 隐含马尔可夫模型（HMM） 隐含马尔可夫模型（HMM）是将分词作为字在句子中的序列标注任务来实现的。 基本思路是：每个字在构造一个特定词语时都占据着一个特定的位置即词位，一般采用四结构词位：B（词首），M（词中），E（词尾）和S（单独成词）。 其中，词位序列代表着HMM中不可见的隐藏状态序列，而训练集中的文本则为可见的观测序列。这样就变成了已知观测序列，求未知的隐藏序列的HMM问题。 HMM 代码实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116class HMM: def __init__(self): # 词语状态标签 B-k*M-E(2个字及以上词语) S(1个字的词语) self.state_list = ['B', 'M', 'E', 'S'] self.start_probability = &#123;&#125; # 初始状态概率 self.trans_probability = &#123;&#125; # 转移概率 self.emit_probability = &#123;&#125; # 观测概率 def __load_corpus(self, file): with open(file, 'r', encoding='utf-8') as f: for l in f: # 将一行文本拆成词，按照词进行分析 text_list = l.strip().split() for text in text_list: if len(text) &gt; 0: word_list = [w for w in text] label_list = self.__make_label(text) assert len(word_list) == len(label_list) yield word_list, label_list @staticmethod def __make_label(text): if len(text) == 1: result = ['S'] else: result = ['B'] + ['M']*(len(text)-2) + ['E'] return result def train(self, corpus, model): state_num_dict = &#123;&#125; # 记录每种状态的总数，用来计算概率 start_num_dict = &#123;&#125; # 初始位置每种状态的数量 trans_num_dict = &#123;&#125; # 各种状态之间转移的数量 emit_num_dict = &#123;&#125; for state in self.state_list: state_num_dict[state] = 0 start_num_dict[state] = 0 trans_num_dict[state] = &#123;v: 0 for v in self.state_list&#125; emit_num_dict[state] = &#123;&#125; # 根据每个字的状态，统计数量 pre_state = 'B' for word_list, label_list in self.__load_corpus(corpus): for i, v in enumerate(label_list): state_num_dict[v] += 1 if i == 0: start_num_dict[v] += 1 trans_num_dict[pre_state][v] += 1 emit_num_dict[v][word_list[i]] = emit_num_dict[v].get(word_list[i], 0) + 1 pre_state = label_list[i] # print(sum(state_num_dict.values()), sum(start_num_dict.values())) # 根据数量 计算概率 初始状态概率 转移概率 观测概率 self.start_probability = &#123;k: v*1.0/sum(start_num_dict.values()) for k, v in start_num_dict.items()&#125; self.trans_probability = &#123;k: &#123;k1: v1*1.0/state_num_dict[k1] for k1, v1 in v.items()&#125; for k, v in trans_num_dict.items()&#125; self.emit_probability = &#123;k: &#123;k1: ((v1*1.0+1.0)/state_num_dict.get(k, 1.0)) for k1, v1 in v.items()&#125; for k, v in emit_num_dict.items()&#125; # 保存模型 with open(model, 'wb') as f: import pickle pickle.dump(self.start_probability, f) pickle.dump(self.trans_probability, f) pickle.dump(self.emit_probability, f) print("模型训练完成,保存在", model) print(self.start_probability) print(self.trans_probability) print(self.emit_probability) def __viterbi(self, text=""): O_ = text.strip() I_ = self.state_list A_ = self.trans_probability B_ = self.emit_probability pi_ = self.start_probability delta = [&#123;&#125; for _ in range(len(O_))] phi = [&#123;&#125; for _ in range(len(O_))] # 1.初始化 for i in I_: delta[0][i] = pi_[i]*B_[i].get(O_[0], 1.0) phi[0][i] = 'S' # 2.递推 for t in range(1, len(O_)): for i in I_: (delta[t][i], phi[t][i]) = max([(delta[t-1][j]*A_[j][i]*B_[i].get(O_[t], 1.0), j) for j in I_]) # 3.终止 P = [0]*len(O_) I = ['']*len(O_) P = [max([v for v in _delta.values()])for _delta in delta] i = delta[len(O_)-1] I[len(O_)-1] = max(i, key=i.get) # 4.最优路径回溯 for t in range(len(O_)-1, 0, -1): I[t-1] = phi[t][I[t]] return I def analyze(self, text, model): # 加载模型 with open(model, 'rb') as f: import pickle self.start_probability = pickle.load(f) self.trans_probability = pickle.load(f) self.emit_probability = pickle.load(f) label = self.__viterbi(text.strip()) for i, l in enumerate(label): if i != 0 and (l == 'B' or l == 'S'): print('/', end='') print(text[i], end='')if __name__ == '__main__': hmm = HMM() # hmm.train('pku_training.utf8.txt', 'hmm_model.pkl') # hmm.analyze("迈向充满希望的新世纪——一九九八年新年讲话", 'hmm_model.pkl') hmm.analyze("我去北京四维图新大厦的路上经过火车站和天安门广场。", 'hmm_model.pkl') 输出结果1我去/北京/四/维图/新/大厦/的/路/上/经过/火车/站/和/天/安门/广场。]]></content>
+      <categories>
+        <category>中文分词</category>
+      </categories>
+      <tags>
+        <tag>HMM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vertbi算法]]></title>
+    <url>%2FVertbi%E7%AE%97%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[维特比算法 代码实现 维特比算法 代码实现12345678910111213141516171819202122232425262728293031def __viterbi(): O_ = [0, 1, 0] I_ = [0, 1, 2] A_ = [[0.5, 0.2, 0.3], [0.3, 0.5, 0.2], [0.2, 0.3, 0.5]] B_ = [[0.5, 0.5], [0.4, 0.6], [0.7, 0.3]] pi_ = [0.2, 0.4, 0.4] delta = [&#123;&#125; for _ in range(len(O_))] phi = [&#123;&#125; for _ in range(len(O_))] # 1.初始化 for i in I_: delta[0][i] = pi_[i]*B_[i][O_[0]] phi[0][i] = 0 # 2.递推 for t in range(1, len(O_)): for i in I_: (delta[t][i], phi[t][i]) = max([(delta[t-1][j]*A_[j][i]*B_[i][O_[t]], j) for j in I_]) # 3.终止 P = [0]*len(O_) I = [0]*len(O_) P = [max([v for v in _delta.values()])for _delta in delta] i = delta[len(O_)-1] I[len(O_)-1] = max(i, key=i.get) # 4.最优路径回溯 for t in range(len(O_)-1, 0, -1): I[t-1] = phi[t][I[t]] print(I) # 输出[2, 2, 2]]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>维特比</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[SQL相关]]></title>
+    <url>%2FSQL%E7%9B%B8%E5%85%B3%2F</url>
+    <content type="text"><![CDATA[SQL的分类 SQL的分类（1）、数据库查询语句（DQL）简称：DQL，Data Query Language代表关键字：select （2）、数据库操作语言（DML）简称：DML，Data Manipulation Language代表关键字：insert、delete 、update增、删、改表中的数据 （3）、数据库定义语言（DDL）简称：DDL，Data Denifition Language代表关键字：create、drop、alter创建、删除、修改表的结构 （4）、事务控制语言（TCL）简称：TCL，Trasactional Control Language代表关键字：commit、rollback （5）、数据控制语言（DCL）简称：DCL，Data Control Language代表关键字：grant、revoke （6）、DML与DDL的区别是什么DML是修改数据库表中的数据，而DDL是修改数据中表的结构； 参考资料OceanBase CSDN Mysql表的定义&amp;&amp;SQL的分类]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>sql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Java避坑]]></title>
+    <url>%2FJava%E9%81%BF%E5%9D%91%2F</url>
+    <content type="text"><![CDATA[记录一些Java编程的经验教训 JAVA基础时间日期]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>经验</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Python避坑]]></title>
     <url>%2FPython%E9%81%BF%E5%9D%91%2F</url>
     <content type="text"><![CDATA[记录一些Python编程的经验教训 codecs.open和open的区别 Python3直接用open。 Python2.x下用codecs.open，特别是有中文的情况，然后也可以避免踩到2.6下面io.open的坑。 如果希望代码同时兼容Python2和Python3，那么推荐用codecs.open。 资料百度知道]]></content>
@@ -14,7 +92,7 @@
   <entry>
     <title><![CDATA[基于规则的分词实现]]></title>
     <url>%2F%E5%9F%BA%E4%BA%8E%E8%A7%84%E5%88%99%E7%9A%84%E5%88%86%E8%AF%8D%E5%AE%9E%E7%8E%B0%2F</url>
-    <content type="text"><![CDATA[最大匹配法（MM）实现案例 最大匹配法（MM）实现案例词典文件word.txt12345678910北京天安门四维图新大厦广场路上前往火车站公司经过 停用词文件stoplis.txt12345678@#￥%&amp;_=+ 最大匹配法 代码实现123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869import codecsclass MM: def __init__(self): self.dic = &#123;&#125; self.stoplis = &#123;&#125; self.load() self.max_chars = 0 # 遍历分词字典，获得最大分词长度 for key in self.dic: if len(key) &gt; self.max_chars: self.max_chars = len(key) def load(self): # 获得分词字典，存储为字典形式 f1 = codecs.open('words.txt', 'r', encoding='utf8') while 1: line = f1.readline() if len(line) == 0: break term = line.strip().replace('\r\n', '') # 去除字符串两侧的换行符，避免取最大分词长度时出差错 self.dic[term] = 1 f1.close # 获得停用词典，存储为字典形式 f2 = codecs.open('stoplis.txt', 'r', encoding='utf8') while 1: line = f2.readline() if len(line) == 0: break term = line.strip() self.stoplis[term] = 1 f2.close # 正向最大匹配分词算法 def analyze(self, chars): # 获得需要分词的文本，为字符串形式 # 去除字符串两侧的换行符，避免截词时出差错 chars = chars.strip().replace('\r\n', '') # 定义一个空列表来存储分词结果 words = [] n = 0 while n &lt; len(chars): matched = 0 for i in range(self.max_chars, 0, -1): s = chars[n:n + i] # 判断所截取字符串是否在分词词典和停用词典内 if s in self.dic: if s in self.stoplis: matched = 1 n = n + i break else: words.append(s) matched = 1 n = n + i break if s in self.stoplis: matched = 1 n = n + i break if not matched: words.append(chars[n]) n = n + 1 print("/".join(words))if __name__ == '__main__': mm = MM() mm.analyze("我去北京四维图新大厦的路上经过@火车站和@天安门广场。") 测试结果1我/去/北京/四维图新/大厦/的/路上/经过/火车站/和/天安门/广场/。]]></content>
+    <content type="text"><![CDATA[最大匹配法（MM）实现案例 逆向最大匹配法（RMM） 实现案例 准备文件词典文件word.txt12345678910北京天安门四维图新大厦广场路上前往火车站公司经过 停用词文件stoplis.txt12345678@#￥%&amp;_=+ 最大匹配法（MM）实现案例最大匹配法 代码实现1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071import codecsclass MM: def __init__(self): self.dic = &#123;&#125; self.stoplis = &#123;&#125; self.load() self.max_chars = 0 # 遍历分词字典，获得最大分词长度 for key in self.dic: if len(key) &gt; self.max_chars: self.max_chars = len(key) # map写法 # self.max_chars = max(map(len, [x for x in self.dic])) def load(self): # 获得分词字典，存储为字典形式 f1 = codecs.open('words.txt', 'r', encoding='utf8') while 1: line = f1.readline() if len(line) == 0: break term = line.strip().replace('\r\n', '') # 去除字符串两侧的换行符，避免取最大分词长度时出差错 self.dic[term] = 1 f1.close # 获得停用词典，存储为字典形式 f2 = codecs.open('stoplis.txt', 'r', encoding='utf8') while 1: line = f2.readline() if len(line) == 0: break term = line.strip() self.stoplis[term] = 1 f2.close # 正向最大匹配分词算法 def analyze(self, chars): # 获得需要分词的文本，为字符串形式 # 去除字符串两侧的换行符，避免截词时出差错 chars = chars.strip().replace('\r\n', '') # 定义一个空列表来存储分词结果 words = [] n = 0 while n &lt; len(chars): matched = 0 for i in range(self.max_chars, 0, -1): s = chars[n:n + i] # 判断所截取字符串是否在分词词典和停用词典内 if s in self.dic: if s in self.stoplis: matched = 1 n = n + i break else: words.append(s) matched = 1 n = n + i break if s in self.stoplis: matched = 1 n = n + i break if not matched: words.append(chars[n]) n = n + 1 print("/".join(words))if __name__ == '__main__': mm = MM() mm.analyze("我去北京四维图新大厦的路上经过@火车站和@天安门广场。") 测试结果1我/去/北京/四维图新/大厦/的/路上/经过/火车站/和/天安门/广场/。 逆向最大匹配法（RMM） 实现案例逆向最大匹配法 实现代码python1234567891011121314151617181920212223242526272829303132333435363738394041424344class RMM: def __init__(self, word_dict, stop_dict): self.word_dict = word_dict self.stop_dict = stop_dict # 扫描窗口大小,由最大单词长度决定 self.window_max_size = self.__getMaxLen() def __getMaxLen(self): return max(map(len, [word for word in self.word_dict])) def analyze(self, text): result = [] index = len(text) # 判断位置 while index &gt; 0: # 判断位置从后向前移动，当位置太靠前时，窗口需要结合实际缩小 window_size = min(index, self.window_max_size) for size in range(window_size, 0, -1): piece = text[index-size: index] if piece in self.stop_dict: index = index - size + 1 piece = "-*-停止词-*-" break elif piece in self.word_dict: index = index - size + 1 break index = index - 1 result.append(piece) # 因为是从后向前切分的,保存结果顺序需要反转 result.reverse() return resultif __name__ == '__main__': words = set() stops = set() with open('words.txt', 'r') as f: for w in f: words.add(w.strip()) with open('stoplis.txt', 'r') as f: for w in f: stops.add(w.strip()) rmm = RMM(words, stops) res = rmm.analyze("我去北京四维图新大厦的路上经过@火车站和@天安门广场。") print("/".join([w for w in res if w != "-*-停止词-*-"])) 测试结果1我/去/北京/四维图新/大厦/的/路上/经过/火车站/和/天安门/广场/。]]></content>
       <categories>
         <category>中文分词</category>
       </categories>
@@ -41,9 +119,9 @@
         <category>工具</category>
       </categories>
       <tags>
-        <tag>经验</tag>
         <tag>git</tag>
         <tag>ssh</tag>
+        <tag>经验</tag>
       </tags>
   </entry>
   <entry>
