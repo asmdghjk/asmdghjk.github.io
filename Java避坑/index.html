@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="博客">
 <meta property="og:description" content="记录一些Java编程的经验教训">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-16T05:25:34.078Z">
+<meta property="og:updated_time" content="2019-05-21T01:40:26.367Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java避坑">
 <meta name="twitter:description" content="记录一些Java编程的经验教训">
@@ -173,7 +173,20 @@
       
         <p>记录一些Java编程的经验教训</p>
 <a id="more"></a>
-<h1 id="JAVA基础"><a href="#JAVA基础" class="headerlink" title="JAVA基础"></a>JAVA基础</h1><h3 id="时间日期"><a href="#时间日期" class="headerlink" title="时间日期"></a>时间日期</h3>
+<h3 id="自动拆装箱与缓存"><a href="#自动拆装箱与缓存" class="headerlink" title="自动拆装箱与缓存"></a>自动拆装箱与缓存</h3><p>在Java 5中，在Integer的操作上引入了一个新功能来节省内存和提高性能。整型对象通过使用相同的对象引用实现了缓存和重用。</p>
+<blockquote>
+<p>适用于整数值区间-128 至 +127。</p>
+<p>只适用于自动装箱。使用构造函数创建对象不适用。</p>
+</blockquote>
+<p>Java SE的自动拆装箱还提供了一个和缓存有关的功能，我们先来看以下代码，猜测一下输出结果：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String... strings)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">        Integer integer1 = <span class="number">3</span>;</span><br><span class="line">        Integer integer2 = <span class="number">3</span>;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> (integer1 == integer2)</span><br><span class="line">            System.out.println(<span class="string">"integer1 == integer2"</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            System.out.println(<span class="string">"integer1 != integer2"</span>);</span><br><span class="line">    </span><br><span class="line">        Integer integer3 = <span class="number">300</span>;</span><br><span class="line">        Integer integer4 = <span class="number">300</span>;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> (integer3 == integer4)</span><br><span class="line">            System.out.println(<span class="string">"integer3 == integer4"</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            System.out.println(<span class="string">"integer3 != integer4"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们普遍认为上面的两个判断的结果都是false。虽然比较的值是相等的，但是由于比较的是对象，而对象的引用不一样，所以会认为两个if判断都是false的。在Java中，==比较的是对象应用，而equals比较的是值。所以，在这个例子中，不同的对象有不同的引用，所以在进行比较的时候都将返回false。奇怪的是，这里两个类似的if条件判断返回不同的布尔值。</p>
+<p>上面这段代码真正的输出结果：(原因就和Integer中的缓存机制有关。)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">integer1 == integer2</span><br><span class="line">integer3 != integer4</span><br></pre></td></tr></table></figure>
+<p>我们只需要知道，当需要进行自动装箱时，如果数字在-128至127之间时，会直接使用缓存中的对象，而不是重新创建一个对象。</p>
+<p>其中的javadoc详细的说明了缓存支持-128到127之间的自动装箱过程。最大值127可以通过-XX:AutoBoxCacheMax=size修改。</p>
+<p>实际上这个功能在Java 5中引入的时候,范围是固定的-128 至 +127。后来在<strong>Java 6</strong>中，可以通过<strong>java.lang.Integer.IntegerCache.high</strong>设置最大值。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><em>hollischuang</em> <a href="https://github.com/hollischuang/toBeTopJavaer?utm_source=gold_browser_extension" target="_blank" rel="noopener">GitHub To Be Top Javaer - Java工程师成神之路</a></p>
+
       
 
       
@@ -326,7 +339,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JAVA基础"><span class="toc-number">1.</span> <span class="toc-text">JAVA基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#时间日期"><span class="toc-number">1.0.1.</span> <span class="toc-text">时间日期</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#自动拆装箱与缓存"><span class="toc-number">1.</span> <span class="toc-text">自动拆装箱与缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">2.</span> <span class="toc-text">参考资料</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -470,10 +483,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">maven</a>
               </li>
              
@@ -482,11 +491,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">sql</a>
+                <a href="javascript:void(0)" class="js-tag color3">基础</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">维特比</a>
+                <a href="javascript:void(0)" class="js-tag color4">sql</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -498,7 +507,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">HMM</a>
+                <a href="javascript:void(0)" class="js-tag color4">维特比</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,6 +516,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">公钥加密算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">HMM</a>
               </li>
             
             <div class="clearfix"></div>
